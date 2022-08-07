@@ -1,0 +1,1 @@
+---- name: install NGINX  apt:    name: "{{ item.name }}"    state: "{{ item.install_state }}"    update_cache: yes  loop: "{{ nginx }}"  notify: start nginx  tags: ['nginx']

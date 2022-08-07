@@ -1,0 +1,10 @@
+---
+#
+- hosts: eco.sarawan.ru
+  gather_facts: true
+  roles:
+    - nginx
+    - letsencrypt
+    - postgres
+    - python 3.9
+

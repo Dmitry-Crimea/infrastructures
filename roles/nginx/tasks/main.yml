@@ -1,0 +1,13 @@
+---
+
+- name: 'PREREQ | prepare to install'
+  import_tasks: "prereq.yml"
+  tags: ['nginx']
+
+- name: 'INSTALL | install NGINX'
+  import_tasks: "install.yml"
+  tags: ['nginx']
+
+- name: 'CONFIGURE | configurate NGINX'
+  import_tasks: "config.yml"
+  tags: ['nginx']

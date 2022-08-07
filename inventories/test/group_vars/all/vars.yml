@@ -1,0 +1,65 @@
+---
+
+domain_name: eco.sarawan.ru
+
+project_email: info@sarawan.ru
+
+
+########## Let`s Encrypt variables ##########
+
+certbot_packages:
+  - certbot
+  - python3-certbot-nginx
+
+certbot:
+  - name: nginx
+    domain: "{{ domain_name }}"
+    email: "{{ project_email }}"
+
+########## NGINX variables ##########
+
+nginx:
+  - name: nginx
+    domain: "{{ domain_name }}"
+    dir: "/var/www/{{ domain_name }}/html"
+    owner: root
+    group: root
+    mode: 755
+    dir_state: directory
+    install_state: present
+
+########## PostgreSQL variables ##########
+
+dependencies:
+    - wget
+    - vim
+    - bash-completion
+    - acl
+
+postgres_pack:
+    - postgresql-contrib
+#    - postgresql-server-devel
+    - python3-psycopg2
+    - postgresql
+    - postgresql-client
+    - libpq-dev
+#    - postgresql-server-dev
+#    - pgadmin packages
+
+postgres_key_url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+
+postgres_repo_url: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+
+########## Python variables ##########
+
+python_packages:
+  - python3.9
+  - python3-pip
+  - python3-django
+
+python_pip_packages:
+  - djangorestframework
+  - markdown
+  - django-filter
+
+project_root: /
