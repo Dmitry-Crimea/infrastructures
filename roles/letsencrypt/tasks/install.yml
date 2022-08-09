@@ -1,1 +1,9 @@
----- name: install certbot  apt:    name: "{{ item }}"    state: present    update_cache: yes  loop: "{{ certbot_packages }}"  tags: ['letsencrypt']
+---
+
+- name: install certbot #
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop: "{{ certbot_packages }}"
+  tags: ['letsencrypt']
