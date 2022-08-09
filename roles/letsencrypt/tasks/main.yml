@@ -1,1 +1,9 @@
----- name: 'INSTALL | install certbot'  import_tasks: install.yml  tags: ['letsenctypt']- name: 'CONFIG | configure SSL'  import_tasks: config.yml  tags: ['letsenctypt']
+---
+
+- name: 'INSTALL | install certbot' #
+  import_tasks: install.yml
+  tags: ['letsenctypt']
+
+- name: 'CONFIG | configure SSL'
+  import_tasks: config.yml
+  tags: ['letsenctypt']
