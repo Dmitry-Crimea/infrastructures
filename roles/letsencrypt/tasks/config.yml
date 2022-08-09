@@ -1,1 +1,22 @@
----- name: creating SSL cert  command:    cmd: |      certbot certonly -n --{{ item.name }}      -d {{ item.domain }} -d www.{{ item.domain }}      --agree-tos --email {{ item.email }} --redirect    creates: /etc/letsencrypt/accounts  loop: "{{ certbot }}"  tags: ['letsencrypt']- name: create cronjob to run certbot automatically  cron:    name: 'certbot'    minute: 0    hour: 0    day: 1    month: "*"    user: "root"    job: "/usr/bin/certbot renew --quiet --post-hook 'sudo service nginx reload'"  tags: ['letsencrypt']
+---
+
+- name: creating SSL cert #
+  command:
+    cmd: |
+      certbot certonly -n --{{ item.name }}
+      -d {{ item.domain }} -d www.{{ item.domain }}
+      --agree-tos --email {{ item.email }} --redirect
+    creates: /etc/letsencrypt/accounts
+  loop: "{{ certbot }}"
+  tags: ['letsencrypt']
+
+- name: create cronjob to run certbot automatically
+  cron:
+    name: 'certbot'
+    minute: 0
+    hour: 0
+    day: 1
+    month: "*"
+    user: "root"
+    job: "/usr/bin/certbot renew --quiet --post-hook 'sudo service nginx reload'"
+  tags: ['letsencrypt']
