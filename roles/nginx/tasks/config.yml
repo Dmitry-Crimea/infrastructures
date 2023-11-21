@@ -1,1 +1,25 @@
----- name: copy config file  template:    src: site_available.conf.j2    dest: "/etc/nginx/sites-available/{{ domain_name }}"  tags: ['nginx']- name: copy config file  template:    src: nginx.conf.j2    dest: "/etc/nginx/nginx.conf"  tags: ['nginx']- name: copy html file  copy:    src: index.html    dest: "{{ item.dir }}"  loop: "{{ nginx }}"  tags: ['nginx']- name: create link  shell: "sudo ln -s /etc/nginx/sites-available/{{ domain_name }} /etc/nginx/sites-enabled/"  ignore_errors: true  tags: ['nginx']
+---
+- name: copy config file
+  template:
+    src: site_available.conf.j2
+    dest: "/etc/nginx/sites-available/{{ domain_name }}"
+  tags: ['nginx']
+
+- name: copy config file
+  template:
+    src: nginx.conf.j2
+    dest: "/etc/nginx/nginx.conf"
+  tags: ['nginx']
+
+- name: copy html file
+  copy:
+    src: index.html
+    dest: "{{ item.dir }}"
+  loop: "{{ nginx }}"
+  tags: ['nginx']
+
+- name: create link
+  shell: "sudo ln -s /etc/nginx/sites-available/{{ domain_name }} /etc/nginx/sites-enabled/"
+  ignore_errors: true
+  tags: ['nginx']
+
